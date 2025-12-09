@@ -13,7 +13,7 @@ El flujo de trabajo es orquestado totalmente por **AWS Step Functions** y sigue 
 5. **Calidad y Alertas:** Manejo de errores con **SNS** (envío de correos en caso de Éxito o Fallo).
 6. **Analítica:** Consultas SQL con **Athena** y visualización en **QuickSight**.
 
-![Diagrama de Arquitectura](./architecture/diagrama_arquitectura.png)
+![Diagrama de Arquitectura](architecture/diagrama_architecture.jpg)
 
 ## 🛠️ Servicios AWS utilizados
 
@@ -41,11 +41,23 @@ El flujo de trabajo es orquestado totalmente por **AWS Step Functions** y sigue 
 
 ## 📊 Resultados
 
-### Ejecución Exitosa (Step Functions)
-![Grafo SFN](./images/step_functions_graph.png)
+### Ejecución Orquestador (Step Functions)
+![Orquestadir](images/stepfunctions_graph.png)
 
 ### Dashboard de Negocio (QuickSight)
 ![Dashboard](./images/dashboard_quicksight.png)
+
+### **📍 Alcance del Proyecto y Suposiciones de Ingesta**
+
+Este proyecto se enfoca en el ciclo de vida del dato post-ingesta (Procesamiento, Orquestación y Consumo).
+
+Simulación de la Fuente de Datos: Se asume la existencia de un sistema transaccional externo (ej. un ERP de Ventas o un Servidor de Logs) que exporta sus datos periódicamente.
+
+Mecanismo Simulado: En un entorno productivo, un proceso automatizado (como un Cron Job o AWS Transfer Family) depositaría archivos CSV en el bucket S3 (/raw) diariamente a una hora específica.
+
+En esta Demo: Esta ingesta se simula mediante la carga manual de archivos CSV al bucket S3, lo cual representa el lote de datos ("Batch") del día a procesar.
+
+Disparador: El Pipeline detecta la presencia de estos datos o cumple su horario programado (EventBridge) para iniciar el ETL.
 
 ## 👥 Autores
 
